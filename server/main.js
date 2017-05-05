@@ -63,7 +63,7 @@ var startServer = function () {
 
 };
 
-db.sync()
+db.sync({force: true})
 .then(()=>{
   console.log('db has synced');
   startServer();
