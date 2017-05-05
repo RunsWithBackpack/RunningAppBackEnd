@@ -24,9 +24,46 @@ var startServer = function () {
         console.log(chalk.blue('Server started on port', chalk.magenta(PORT)));
     });
 
+      // .then(()=>{   //testing purposes
+      //   return db.model('route').findAll({
+      //     where: {id: routeId},
+      //     include: [{model: db.model('user'), as: 'users'}, {model: db.model('routetime'), as: 'routetimes'}]
+      //   });
+      // })
+      // .then((route)=>{
+      //   route=route[0]
+      //   console.log(route.users.map(user=>user.id))
+      //   console.log(route.routetimes.map(routetime=>routetime.timesArr))
+      // })
+      // .then(()=>{
+      //   return db.model('routetime').findAll({
+      //     where: {id: 1},
+      //     include: [{model: db.model('user'), as: 'user', include: blah blah blah}]
+      //     })
+      //   })
+      // .then((routetime)=>{
+      //   console.log(routetime[0].user);
+      // })
+      // .then((associatedRoutetimes)=>{
+      //   console.log(associatedRoutetimes.map(routetime=>routetime.timesArr))
+      // })
+      // .then(()=>{
+      //   return db.model('user').findById(1)
+      //   // console.log(routetimes)
+      //   // console.log(routetimes.map(routetime=>routetime.timesArr))
+      // })
+      // .then((user)=>{
+      //   return user.getBestTime(routeId)
+      //   // db.model('route').findAll({
+      //   //   where: {routeId},
+      //   //   include: [{model: db.model('products'), as: 'associatedProduct'}, ],
+      //   // })
+      // })
+      // .then((what)=>console.log(what))
+
 };
 
-db.sync({force: true})
+db.sync()
 .then(()=>{
   console.log('db has synced');
   startServer();

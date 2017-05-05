@@ -2,7 +2,8 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 
-var User = db.define('user', {
+var User = db.define('user',
+  {
     email: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -24,7 +25,19 @@ var User = db.define('user', {
         type: Sequelize.STRING,
     },
 
-});
+  },
+  {
+    instanceMethods: {
+      getBestTime: function(routeId){
+        // return this.getRoutetimes().sort(function(a,b){return b.runTime-a.runTime})
+        return this.getRoutetimes()
+                .then(routetimes=>{
+                  return routetimes.sort(function(a,b){return b.runtime-a.runtime})[0];
+                })
+      }
+    }
+  }
+);
 
 
 
