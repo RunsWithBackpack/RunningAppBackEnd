@@ -12,7 +12,7 @@ var Route = db.define('route',
     },
   },
   {
-    getterMethods   : {
+    getterMethods : {
       convCoords: function() {//On the front end, you can get the array of coordinates that can work with navigator and mapview via this pseudofield convCoords
         // console.log(this.coords);
         let convertedCoords= this.coords.map(arr=>{
@@ -21,6 +21,9 @@ var Route = db.define('route',
         return convertedCoords;
       },
     },
+    // classMethods : {
+    //
+    // }
 
     // setterMethods   : { //HOW THE FUCK DO SETTERS WORK??? WHY NOT JUST MAKE AN INSTANCE METHOD???? FIGURE THIS SHIT OUT
     //   fullName       : function(value) {

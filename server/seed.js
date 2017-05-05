@@ -52,12 +52,12 @@ db.sync({force: true})
   gabbyInst.addRoute(route2);
 
   return Promise.all([
-          db.model('routetime').create({timesArr: [0,5,10,19], userId: charlesInst.id, routeId: route1.id}),
+          db.model('routetime').create({timesArr: [0,5,10,20], userId: charlesInst.id, routeId: route1.id}),
           db.model('routetime').create({timesArr: [0,7,16,24], userId: alyssaInst.id, routeId: route1.id}),
           db.model('routetime').create({timesArr: [0,7,16,23], userId: alyssaInst.id, routeId: route1.id}),
           db.model('routetime').create({timesArr: [0,8,16,25], userId: gabbyInst.id, routeId: route1.id}),
 
-          db.model('routetime').create({timesArr: [0,5,10,19], userId: charlesInst.id, routeId: route2.id}),
+          db.model('routetime').create({timesArr: [0,5,10,20], userId: charlesInst.id, routeId: route2.id}),
           db.model('routetime').create({timesArr: [0,8,16,25], userId: gabbyInst.id, routeId: route2.id}),
         ])
   })

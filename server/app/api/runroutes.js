@@ -7,17 +7,24 @@ const Route = dbIndex.Route;
 module.exports = require('express').Router()
   .get('/',//THIS SHOULD BE FORBIDDEN TO REGULAR USERS!!!!!!!!!!!  ONLY ADMIN OR SOMETHING CAN GET THIS... IMPLEMENT THIS WHEN WE HAVE TIME
     (req, res, next) =>
-      Route.findAll({
-        include: [{model: db.model('routetime'), as: 'routetimes',
-          // include: [{ model: db.model('user'), as: 'users'}]
-        }]
-      })
-        .then(routes=>{
-          console.log(routes)
-          return routes;
-        })
-        .then(routes => res.json(routes))
+      Route.findAll()
+        .then(allRoutes => res.json(allRoutes))
         .catch(next))
+  .get('/:id',
+  (req, res, next) =>
+    Route.findAll(
+      {
+        where: {id: req.params.id},
+        include: [{model: db.model('user'), as: 'users',
+          include: [{ model: db.model('routetime'), as: 'routetimes', where: { best: true, routeId: req.params.id }}]
+          }]
+      })
+      .then(routes=>{
+        console.log(routes)
+        return routes;
+      })
+      .then(routes => res.json(routes))
+      .catch(next))
   // .post('/login', function (req, res, next) {
   //   User.findOne({where: {email: req.body.email, password: req.body.password}})
   //     .then(userObj=>{

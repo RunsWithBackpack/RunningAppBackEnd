@@ -18,12 +18,12 @@ var Sequelize = require('sequelize')
 // User.hasMany(Phase)
 
 //
-// User.hasMany(Routetime) //RouteTime is a kuje join table between User and Routes, but different from UserAndRoutes because it contains a time array representing what time a runner got to a location (the time array has equivalent length to routes coordinates)..
-// // Routetime.belongsTo(User)
+User.hasMany(Routetime) //RouteTime is a kuje join table between User and Routes, but different from UserAndRoutes because it contains a time array representing what time a runner got to a location (the time array has equivalent length to routes coordinates)..
+Routetime.belongsTo(User)
 // Routetime.hasOne(User)
 
-User.belongsToMany(Routetime, {through: 'UserAndRouteTimes'}) //RouteTime is a kuje join table between User and Routes, but different from UserAndRoutes because it contains a time array representing what time a runner got to a location (the time array has equivalent length to routes coordinates)..
-Routetime.hasOne(User)
+// User.belongsToMany(Routetime, {through: 'UserAndRouteTimes'}) //RouteTime is a kuje join table between User and Routes, but different from UserAndRoutes because it contains a time array representing what time a runner got to a location (the time array has equivalent length to routes coordinates)..
+// Routetime.hasOne(User)
 
 Route.hasMany(Routetime)
 Routetime.belongsTo(Route)
