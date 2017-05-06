@@ -3,6 +3,7 @@
 const dbIndex = require('../../db');
 const db=dbIndex.db;
 const Route = dbIndex.Route;
+const Routetime = dbIndex.Routetime;
 
 module.exports = require('express').Router()
   .get('/',//THIS SHOULD BE FORBIDDEN TO REGULAR USERS!!!!!!!!!!!  ONLY ADMIN OR SOMETHING CAN GET THIS... IMPLEMENT THIS WHEN WE HAVE TIME
@@ -25,6 +26,25 @@ module.exports = require('express').Router()
       })
       .then(routes => res.json(routes))
       .catch(next))
+    .post('/',//should get a req.body.convCoords, req.body.userId, req.body.timesArr
+      (req, res, next) =>{
+        // req.body.convCoords=[{'latitude': '15', 'longitude': '20'},{'latitude': '20', 'longitude': '25'}];
+        // req.body.startTime=Date.now();
+        // req.body.startTime=Date.now();
+        // req.body.userId=1;
+        // req.body.timesArr=[1,2];
+        // the above is for testing purposes
+        return Route.create()
+          .then(createdRoute => {
+            createdRoute.jsonLatLongCoords=req.body.convCoords;
+            let routeId = createdRoute.id;
+            return Routetime.create({timesArr: req.body.timesArr, startTime: req.body.startTime, endTime: req.body.endTime , userId: req.body.userId, routeId});
+          })
+          .then(Routetime=>{
+            res.json(Routetime);
+          })
+          .catch(next)
+        })
   // .post('/login', function (req, res, next) {
   //   User.findOne({where: {email: req.body.email, password: req.body.password}})
   //     .then(userObj=>{

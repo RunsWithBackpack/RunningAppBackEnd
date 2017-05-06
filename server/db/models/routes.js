@@ -21,6 +21,16 @@ var Route = db.define('route',
         return convertedCoords;
       },
     },
+    setterMethods : {
+      jsonLatLongCoords: function(jsonLatLongArr){
+        let latlongArrArr= jsonLatLongArr.map(latlongObj=>{
+          return [+latlongObj.latitude,+latlongObj.longitude]
+        })
+        this.setDataValue('coords',latlongArrArr);
+        this.save();
+      }
+    }
+
     // classMethods : {
     //
     // }

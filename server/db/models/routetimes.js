@@ -36,6 +36,7 @@ var Routetime = db.define('routetime',
     },
     hooks: {
       afterCreate: function(newroutetime) {//this hook ensures that a players routetimes (for a given route) are updated with the correct boolean for the "best" field after a new routetime is created (for that route and player)
+        console.log('test')
         userId= newroutetime.userId;
         routeId= newroutetime.routeId;
         return Routetime.update({best: false},{where: {userId, routeId}, returning: true})//not sure why i may need return, but im doing it anyway... also, remember you NEED returning: true, if you want the second element of the resolved value (updatedRes) to contain the updated rows
