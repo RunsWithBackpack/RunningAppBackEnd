@@ -29,6 +29,30 @@ var Route = db.define('route',
         this.setDataValue('coords',latlongArrArr);
         this.save();
       }
+    },
+    classMethods : {
+      filterRoutesByRegion: function(region){
+        let centerLat=+region.latitude;
+        let centerLong=+region.longitude;
+
+        let latMax=centerLat+(region.latitudeDelta/2);//no need to put a '+' in front of region.latitudeDelta, since /2 will automatically change it to a number
+        let latMin=centerLat-(region.latitudeDelta/2);
+        let longMax=centerLong+(region.longitudeDelta/2);
+        let longMin=centerLong-(region.longitudeDelta/2);
+        // console.log('about to filter')
+        return this.findAll()//NEED TO FIGURE OUT A WAY TO HAVE THE FILTER HAPPENING IN HERE WITH A WHERE.. BUT I DONT KNOW HOW TO DO A QUERY WHERE THE CONDITION INVOLVES TESTING ELEMENTS IN AN ARRAY (OF A FIELD)... FIGURE THIS OUT (BECAUSE RIGHT NOW ITS NOT OPTIMIZED)
+          .then(routesArr=>{
+            // console.log('finding All')
+            return routesArr.filter(route=>{
+              // console.log(latMin, latMax, longMin, longMax);
+              // console.log('route coords is ',route.coords);
+              return  (
+                  (route.coords[0][0] <= latMax && route.coords[0][0] >= latMin) && (route.coords[0][1] <= longMax && route.coords[0][1] >= longMin) &&
+                  (route.coords[route.coords.length-1][0] <= latMax && route.coords[route.coords.length-1][0] >= latMin) && (route.coords[route.coords.length-1][1] <= longMax && route.coords[route.coords.length-1][1] >= longMin)
+                      )
+            })
+          })
+      }
     }
 
     // classMethods : {
