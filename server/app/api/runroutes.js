@@ -28,6 +28,7 @@ module.exports = require('express').Router()
       .catch(next))
     .post('/',//should get a req.body.convCoords, req.body.userId, req.body.timesArr
       (req, res, next) =>{
+      
         // req.body.convCoords=[{'latitude': '15', 'longitude': '20'},{'latitude': '20', 'longitude': '25'}];
         // req.body.startTime=Date.now();
         // req.body.startTime=Date.now();
