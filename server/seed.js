@@ -22,6 +22,7 @@ db.sync({force: true})
       db.model('route').create({coords: [[37,-122],[36.5,-121],[36.25,-119.5]]}),
       db.model('route').create({coords: [[35,-118],[35.75,-119.75],[35.5,-119.5]]}),
       db.model('route').create({coords: [[38,-119],[37.75,-119.75],[37,-119]]}),
+      db.model('route').create({coords: [[45,-119],[43.5,-119.75],[43,-119.75],[42,-119]]}),
     ])
   })
 .then(routes=>{

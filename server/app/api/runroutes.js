@@ -8,17 +8,25 @@ const User = dbIndex.User;
 
 module.exports = require('express').Router()
   .get('/',//THIS SHOULD BE FORBIDDEN TO REGULAR USERS!!!!!!!!!!!  ONLY ADMIN OR SOMETHING CAN GET THIS... IMPLEMENT THIS WHEN WE HAVE TIME
-    (req, res, next) => {// an example of a query: http://localhost:3000/api/runroutes/?latitude=35&longitude=-119&latitudeDelta=3&longitudeDelta=1000 (for the seedfile, this should return one of the two routes)
+    (req, res, next) => {// an example of a query: http://localhost:3000/api/runroutes/?latitude=35&longitude=-119&latitudeDelta=3&longitudeDelta=1000&limit=10 (for the seedfile, this should return one of the two routes)
+      let limit= (!req.query.limit) ? 2 : req.query.limit;//default limit if none was specified
+      // console.log(limit)
       if(req.query.latitude && req.query.longitude && req.query.latitudeDelta && req.query.longitudeDelta){
         let region={ latitude: +req.query.latitude, longitude: +req.query.longitude, latitudeDelta: +req.query.latitudeDelta, longitudeDelta: +req.query.longitudeDelta, }
-        console.log(region)
-        return Route.filterRoutesByRegion(region)
-                .then(filteredRoutes=> res.json(filteredRoutes))
+        // console.log(region)
+        return Route.filterRoutesByRegion(region, limit)
+                .then(filteredRoutes=> {
+                  // console.log('num routes to display : ', filteredRoutes.length)
+                  return res.json(filteredRoutes)
+                })
                 .catch(next)
       }
       else {
-        return Route.findAll()
-        .then(allRoutes => res.json(allRoutes))
+        return Route.findAll({limit: limit, order: 'popularity DESC' })
+        .then(allRoutes => {
+          // console.log('num routes found : ',allRoutes.length)
+          return res.json(allRoutes)
+        })
         .catch(next)
       }
     })
