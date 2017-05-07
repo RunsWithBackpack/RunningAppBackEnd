@@ -1,3 +1,4 @@
+const geolib = require('geolib');
 const Sequelize = require('sequelize');
 const db = require('../db');
 
@@ -10,6 +11,10 @@ var Route = db.define('route',
         // allowNull: false,
         // defaultValue: [],
     },
+    popularity: {
+      type: Sequelize.INTEGER,//see popularity comments.. we want to get rid of this eventually... but for now this we have no choice
+      defaultValue: 0,
+    },
   },
   {
     getterMethods : {
@@ -20,6 +25,16 @@ var Route = db.define('route',
         })
         return convertedCoords;
       },
+      totalDist: function(){
+        return (geolib.getPathLength(this.convCoords) * 0.000621371).toFixed(2);
+      }
+      // popularity: function(){    //unfortunatley this returns a promise, and not the length itself... this can be implemented again if we find a way around this.. but for now, popularity will be a direct field of route, updated by routetimes aftercreate hook
+      //   return this.getRoutetimes()
+      //           .then(associatedRoutetimes=>{
+      //             return associatedRoutetimes.length
+      //           })
+      //           .catch(console.error)
+      // }
     },
     setterMethods : {
       jsonLatLongCoords: function(jsonLatLongArr){
@@ -31,7 +46,7 @@ var Route = db.define('route',
       }
     },
     classMethods : {
-      filterRoutesByRegion: function(region){
+      filterRoutesByRegion: function(region, limit){
         let centerLat=+region.latitude;
         let centerLong=+region.longitude;
 
@@ -52,21 +67,28 @@ var Route = db.define('route',
                       )
             })
           })
+          .then(filteredRoutesByRegion=>{
+            return filteredRoutesByRegion.sort(function(a,b){return b.popularity-a.popularity}).slice(0,limit);
+          })
+          .catch(err=>err);
+      }
+    },
+    instanceMethods: {
+      refreshPopularityVals: function(){//this method is not necessary for the most part, since routetime hooks update the popularity field for this model.  However, if the route popularity should ever become desynced from associated routetimes (for whtaever reason), you can run this to sync them up
+        let popularity=0;
+        return this.getRoutetimes()
+          .then(associatedRoutetimes=>{
+            for(let routetime of associatedRoutetimes){
+              popularity+=1;
+            }
+            this.setDataValue('popularity',popularity);
+            this.save();
+            return this;
+          })
+          .catch(err=>err)
       }
     }
-
-    // classMethods : {
-    //
-    // }
-
-    // setterMethods   : { //HOW THE FUCK DO SETTERS WORK??? WHY NOT JUST MAKE AN INSTANCE METHOD???? FIGURE THIS SHIT OUT
-    //   fullName       : function(value) {
-    //       var names = value.split(' ');
-    //
-    //       this.setDataValue('firstname', names.slice(0, -1).join(' '));
-    //       this.setDataValue('lastname', names.slice(-1).join(' '));
-    //   },
-  }//WHY DO TRAILING COMMAS NOT WORK HERE?!?!? THIS IS FUCKING STPUID
+  }
 );
 
 
