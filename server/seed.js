@@ -9,7 +9,7 @@ db.sync({force: true})
   console.log('db has synced. seeding');
   return Promise.all([
     db.model('user').create({email: 'Alyssa@alyssa.com', password: 1234, username: 'runswithbackpack!', city: 'Chicago',}),
-    db.model('user').create({email: 'Gabi@gabi.com', password: 1234, username: 'ggabbiSUCHACOOLNAME', city: 'Chicago',}),//I spelled your name correct this time
+    db.model('user').create({email: 'Gabi@gabi.com', password: 1234, username: 'ggabbiSUCHACOOLNAME', city: 'Chicago',}),//I know how much it means to you, so i spelled your name correctly this time
     db.model('user').create({email: 'Charles@charles.com', password: 1234, username: 'charliieee', city: 'Chicago',}),
   ])
 })
