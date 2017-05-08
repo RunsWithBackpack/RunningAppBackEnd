@@ -57,7 +57,7 @@ module.exports = require('express').Router()
     return User.findOne({
         where: {id: req.params.id},
           include: [{model: Route, through: 'UserAndRoutes', as: 'routes', 
-          include: [{ model: Routetime, as: 'routetimes', where: {best: true, userId: req.params.id}}],
+          include: [{ model: Routetime, as: 'routetimes', where: {userId: req.params.id}}],
           }]
       })
       .then(routes => {
