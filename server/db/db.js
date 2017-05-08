@@ -1,5 +1,7 @@
 var Sequelize = require('sequelize');
-var db = new Sequelize('postgres://localhost:5432/capstone');
+var dbUrl = process.env.DATABASE_URL || 'postgres://localhost:5432/capstone'
+var db = new Sequelize(dbUrl);
+
 
 
 module.exports = db
