@@ -53,16 +53,14 @@ module.exports = require('express').Router()
 
 
   .get('/:id', (req, res, next)=> {
-    console.log('looking for this user ', req.params.id)
     return User.findOne({
         where: {id: req.params.id},
           include: [{model: Route, through: 'UserAndRoutes', as: 'routes', 
           include: [{ model: Routetime, as: 'routetimes', where: {userId: req.params.id}}],
           }]
       })
-      .then(routes => {
-        console.log('this is the users routes ', routes)
-        res.json(routes)
+      .then(userStats => {
+        res.json(userStats)
       })
       .catch((next))
 
