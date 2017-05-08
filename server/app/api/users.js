@@ -19,9 +19,11 @@ module.exports = require('express').Router()
       User.findAll()
         .then(users => res.json(users))
         .catch(next))
-  .post('/login', function (req, res, next) {
-    User.findOne({where: {email: req.body.email, password: req.body.password}})
+  .post('/login', function (req, res, next) {//when we have extra time.. try to implement REAL login with passport (and perhaps OATH too)
+    // console.log('req body: ',req.body);
+    return User.findOne({where: {email: req.body.email, password: req.body.password}})//note currently the email login part is CASE SENSITIVE which is very annoying (we should change this when we have the time)
       .then(userObj=>{
+        // console.log('query result is ', userObj)
         if(userObj){
           res.status(200).send(userObj);
         }
@@ -32,7 +34,7 @@ module.exports = require('express').Router()
       .catch(next)
   })
   .post('/signup', function(req, res, next){
-    User.findOrCreate({where: {email: req.body.email, password: req.body.password}})
+    return User.findOrCreate({where: {email: req.body.email, password: req.body.password}})
       .then(userObj=>{
         // if(userObj){
           res.status(200).send(userObj);

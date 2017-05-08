@@ -1,4 +1,4 @@
-[{
+{
 "convCoords":[{"latitude":"37","longitude":"-122"},{"latitude":"36.5","longitude":"-121"},{"latitude":"36.25","longitude":"-119.5"}],
 "id":1,
 "coords":[["37","-122"],["36.5","-121"],["36.25","-119.5"]],
@@ -54,4 +54,4 @@
         "routeId":1
       }]
   }]
-}]
+}
