@@ -10,7 +10,7 @@ var League = require('./models/leagues')
 var Group = require('./models/groups')
 var League = require('./models/leagues')
 var Route = require('./models/routes')
-var Routetime= require('./models/Routetimes')
+var Routetime= require('./models/routetimes')
 var Sequelize = require('sequelize')
 
 
