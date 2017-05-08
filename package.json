@@ -12,6 +12,8 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "express-session": "^1.15.2",
+    "geolib": "^2.0.22",
+    "heroku": "^0.2.0",
     "morgan": "^1.8.1",
     "nodemon": "^1.11.0",
     "path": "^0.12.7",
