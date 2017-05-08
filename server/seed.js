@@ -60,7 +60,7 @@ db.sync({force: true})
           db.model('routetime').create({timesArr: [0,300,1500,3000,5000,12000], userId: charlesInst.id, routeId: route4.id}),//super fast.. (to test against test runner)
           db.model('routetime').create({timesArr: [0,11000,23000,35000,47000,59000], userId: gabiInst.id, routeId: route4.id}),
 
-          db.model('routetime').create({timesArr: [0,11000,23000,35000,47000,59000], userId: charlesInst.id, routeId: route5.id}),//super fast.. (to test against test runner)
+          db.model('routetime').create({timesArr: [0,300,1500,3000,5000,12000], userId: charlesInst.id, routeId: route5.id}),//super fast.. (to test against test runner)
         ])
   })
 // .then(()=>{
