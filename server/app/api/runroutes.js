@@ -6,6 +6,7 @@ const Route = dbIndex.Route;
 const Routetime = dbIndex.Routetime;
 const User = dbIndex.User;
 
+
 module.exports = require('express').Router()
   .get('/',//THIS SHOULD BE FORBIDDEN TO REGULAR USERS!!!!!!!!!!!  ONLY ADMIN OR SOMETHING CAN GET THIS... IMPLEMENT THIS WHEN WE HAVE TIME
     (req, res, next) => {// an example of a query: http://localhost:3000/api/runroutes/?latitude=35&longitude=-119&latitudeDelta=3&longitudeDelta=1000&limit=10 (for the seedfile, this should return one of the two routes)
@@ -30,6 +31,7 @@ module.exports = require('express').Router()
         .catch(next)
       }
     })
+
   .get('/:id',
   (req, res, next) =>
     Route.findOne(
@@ -45,6 +47,7 @@ module.exports = require('express').Router()
       })
       .then(routes => res.json(routes))
       .catch(next))
+
     .post('/',//should look something like: {"userId": "1","timesArr": ["1","2"], "convCoords": [{"latitude": "1","longitude": "1"},{"latitude": "1","longitude": "1"}] }
     //or {"userId": "1","timesArr": ["1","2"], "convCoords": [{"latitude": "1","longitude": "1"},{"latitude": "1","longitude": "1"}], "routeId": "1" }  if adding just routetime
       (req, res, next) =>{
