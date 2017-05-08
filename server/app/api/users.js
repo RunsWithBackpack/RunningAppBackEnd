@@ -3,6 +3,9 @@
 const dbIndex = require('../../db');
 // const db = require('../../db/db.js')
 const User = dbIndex.User;
+const db=dbIndex.db;
+const Route = dbIndex.Route;
+const Routetime = dbIndex.Routetime;
 
 // const {mustBeLoggedIn, forbidden} = require('./auth.filters')  //have not implemented this yet (maybe much much later)
 
@@ -19,6 +22,7 @@ module.exports = require('express').Router()
       User.findAll()
         .then(users => res.json(users))
         .catch(next))
+
   .post('/login', function (req, res, next) {//when we have extra time.. try to implement REAL login with passport (and perhaps OATH too)
     // console.log('req body: ',req.body);
     return User.findOne({where: {email: req.body.email, password: req.body.password}})//note currently the email login part is CASE SENSITIVE which is very annoying (we should change this when we have the time)
@@ -33,6 +37,7 @@ module.exports = require('express').Router()
       })
       .catch(next)
   })
+
   .post('/signup', function(req, res, next){
     return User.findOrCreate({where: {email: req.body.email, password: req.body.password}})
       .then(userObj=>{
@@ -45,24 +50,22 @@ module.exports = require('express').Router()
       })
       .catch(next)
   })
-  // .get('/fetchSession',(req,res,next)=>{
-  //   res.json(req.session);
-  // })
-  // .post('/', function (req, res, next) {
-  //   User.create(req.body)
-  //   .then(user => {
-  //     if (!user) {
-  //       res.sendStatus(401)
-  //     } else {
-  //       req.session.user = user
-  //       res.json(user)
-  //     }
-  //   })
-  //   .catch(next)
-  // })
-  // .get('/:id',
-  //   mustBeLoggedIn,
-  //   (req, res, next) =>
-  //     User.findById(req.params.id)
-  //     .then(user => res.json(user))
-  //     .catch(next))
+
+
+  .get('/:id', (req, res, next)=> {
+    console.log('looking for this user ', req.params.id)
+    return User.findOne({
+        where: {id: req.params.id},
+          include: [{model: Route, through: 'UserAndRoutes', as: 'routes', 
+          include: [{ model: Routetime, as: 'routetimes', where: {userId: req.params.id}}],
+          }]
+      })
+      .then(routes => {
+        console.log('this is the users routes ', routes)
+        res.json(routes)
+      })
+      .catch((next))
+
+  })
+
+
