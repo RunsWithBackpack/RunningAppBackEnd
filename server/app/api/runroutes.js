@@ -61,20 +61,27 @@ module.exports = require('express').Router()
 
         let routeinstance, routeId;
 
+        console.log('req body is ', req.body)
+
         return Route.findOrCreate({where: {id: req.body.routeId }})
           .then(createdRouteArr => {
             routeinstance= createdRouteArr[0];
-            routeinstance.jsonLatLongCoords=req.body.convCoords;
+            routeinstance.jsonLatLongCoords=req.body.personalCoords;
             routeId = routeinstance.id;
             return User.findById(req.body.userId)
           .then(user=>{
             return user.addRoute(routeinstance);
           })
           .then(()=>{
-            return Routetime.create({timesArr: req.body.timesArr, startTime: req.body.startTime, endTime: req.body.endTime , userId: req.body.userId, routeId});
+            return Routetime.create({personalTimeMarker: req.body.personalTimeMarker, checkpointTimeMarker: req.body.checkpointTimeMarker, startTime: req.body.startTime, endTime: req.body.endTime , userId: req.body.userId, routeId, routetimeId: req.body.phantomRacerRouteTimeId});
           })
           .then(Routetime=>{
-            res.json(Routetime);
+            Routetime.jsonLatLongCoords = req.body.personalCoords
+            return Routetime
+            
+          })
+          .then(routetime => {
+            res.json(routetime);
           })
           .catch(next)
         })

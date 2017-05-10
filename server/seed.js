@@ -19,7 +19,7 @@ db.sync({force: true})
     charlesInst=users[2];
 
     return Promise.all([
-      db.model('route').create({coords: [[37,-122],[36.5,-121],[36.25,-119.5]]}),
+      db.model('route').create({coords: [[37, -122],[36.5,-121],[36.25,-119.5]]}),
       db.model('route').create({coords: [[35,-118],[35.75,-119.75],[35.5,-119.5]]}),
       db.model('route').create({coords: [[38,-119],[37.75,-119.75],[37,-119]]}),
       db.model('route').create({coords: [[45,-119],[43.5,-119.75],[43,-119.75],[42,-119]]}),
@@ -61,7 +61,7 @@ db.sync({force: true})
           db.model('routetime').create({personalTimeMarker: [0,11000,23000,35000,47000,59000], userId: gabiInst.id, routeId: route4.id}),
 
           db.model('routetime').create({personalTimeMarker: [0,300,1500,3000,5000,12000,14000,16000,18000,20000,22000,24000,26000,28000,30000,32000,34000,36000,38000,40000,42000],
-          personalCoords: [[41.809590, -87.596837],[41.809686, -87.592427],[41.808071, -87.590689],[41.805676, -87.589218],[41.802476, -87.587889],[41.801058, -87.587528],[41.801058, -87.5874],[41.801058, -87.5873],[41.801058, -87.5872],[41.801058, -87.5871],[41.801058, -87.5870],[41.801058, -87.5869],[41.801058, -87.5868],[41.801058, -87.5867],[41.801058, -87.5866],[41.801058, -87.5865],[41.801058, -87.5854],[41.801058, -87.5863],[41.801058, -87.5862],[41.801058, -87.5861],[41.801058, -87.5860]],
+          jsonLatLongCoords: [{latitude: 41.809590, longitude:-87.596837},{latitude: 41.809686, longitude:-87.592427},{latitude: 41.808071, longitude:-87.590689},{latitude: 41.805676, longitude:-87.589218},{latitude: 41.802476, longitude:-87.587889},{latitude: 41.801058, longitude:-87.587528},{latitude: 41.801058, longitude:-87.5874},{latitude: 41.801058, longitude:-87.5873},{latitude: 41.801058, longitude:-87.5872},{latitude: 41.801058, longitude:-87.5871},{latitude: 41.801058, longitude:-87.5870},{latitude: 41.801058, longitude:-87.5869},{latitude: 41.801058, longitude:-87.5868},{latitude: 41.801058, longitude:-87.5867},{latitude: 41.801058, longitude:-87.5866},{latitude: 41.801058, longitude:-87.5865},{latitude: 41.801058, longitude:-87.5854},{latitude: 41.801058, longitude:-87.5863},{latitude: 41.801058, longitude:-87.5862},{latitude: 41.801058, longitude:-87.5861},{latitude: 41.801058, longitude:-87.5860}],
           checkpointTimeMarker: [0,22000,42000],
           userId: charlesInst.id, routeId: route5.id}),//super fast.. (to test against test runner)
         ])
