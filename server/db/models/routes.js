@@ -8,8 +8,8 @@ var Route = db.define('route',
   {
     coords: {
         type: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.DECIMAL)),//Should look something like [[36.5, -120],[36.4,-120]] where first el is lat, second el is long
-        // allowNull: false,
-        // defaultValue: [],
+        allowNull: false,
+        defaultValue: [],
     },
     popularity: {
       type: Sequelize.INTEGER,//see popularity comments.. we want to get rid of this eventually... but for now this we have no choice
@@ -26,7 +26,13 @@ var Route = db.define('route',
         return convertedCoords;
       },
       totalDist: function(){
+        console.log('returning total dist')
         return (geolib.getPathLength(this.convCoords) * 0.000621371).toFixed(2);
+      }, 
+      checkpointCoords: function(){
+        return this.coords.filter(coordPair => {
+          return this.coords.indexOf(coordPair) % 10
+        })
       }
       // popularity: function(){    //unfortunatley this returns a promise, and not the length itself... this can be implemented again if we find a way around this.. but for now, popularity will be a direct field of route, updated by routetimes aftercreate hook
       //   return this.getRoutetimes()
