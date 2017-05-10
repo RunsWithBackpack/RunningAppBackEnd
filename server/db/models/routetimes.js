@@ -21,7 +21,8 @@ var Routetime = db.define('routetime',
       defaultValue: false,
     }, 
     personalCoords: {
-      type: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.DECIMAL)), 
+      type: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.DECIMAL)),
+      defaultValue: [], 
     }, 
     personalTimeMarker: {
       type: Sequelize.ARRAY(Sequelize.INTEGER), 
@@ -32,6 +33,16 @@ var Routetime = db.define('routetime',
       runtime: function(){
         return this.personalTimeMarker[this.personalTimeMarker.length-1]-this.personalTimeMarker[0];
       },
+    },
+      setterMethods : {
+      jsonLatLongCoords: function(jsonLatLongArr){
+        // console.log('this is the jsonLatLongArr', jsonLatLongArr)
+        let latlongArrArr= jsonLatLongArr.map(latlongObj=>{
+          return [+latlongObj.latitude,+latlongObj.longitude]
+        })
+        this.setDataValue('personalCoords',latlongArrArr);
+        this.save();
+      }
     },
     hooks: {
       afterCreate: function(newroutetime) {

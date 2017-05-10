@@ -44,6 +44,7 @@ var Route = db.define('route',
     },
     setterMethods : {
       jsonLatLongCoords: function(jsonLatLongArr){
+        console.log('this is the jsonLatLongArr', jsonLatLongArr)
         let latlongArrArr= jsonLatLongArr.map(latlongObj=>{
           return [+latlongObj.latitude,+latlongObj.longitude]
         })
