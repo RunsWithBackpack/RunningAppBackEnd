@@ -34,7 +34,8 @@ module.exports = require('express').Router()
 
   .get('/:id',
   (req, res, next) =>
-    Route.findOne(
+  { console.log('req params', req.params.id)
+    return Route.findOne(
       {
         where: {id: req.params.id},
         include: [{model: db.model('user'), as: 'users',
@@ -42,12 +43,13 @@ module.exports = require('express').Router()
           }]
       })
       .then(routes=>{
-        console.log(routes)
+        console.log('routes is ', routes)
         return routes;
       })
       .then(routes => res.json(routes))
-      .catch(next))
-
+      .catch(next)
+})
+  
     .post('/',//should look something like: {"userId": "1","timesArr": ["1","2"], "convCoords": [{"latitude": "1","longitude": "1"},{"latitude": "1","longitude": "1"}] }
     //or {"userId": "1","timesArr": ["1","2"], "convCoords": [{"latitude": "1","longitude": "1"},{"latitude": "1","longitude": "1"}], "routeId": "1" }  if adding just routetime
       (req, res, next) =>{

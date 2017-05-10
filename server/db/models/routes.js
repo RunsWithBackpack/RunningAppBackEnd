@@ -26,7 +26,6 @@ var Route = db.define('route',
         return convertedCoords;
       },
       totalDist: function(){
-        console.log('returning total dist')
         return (geolib.getPathLength(this.convCoords) * 0.000621371).toFixed(2);
       }, 
       checkpointCoords: function(){
