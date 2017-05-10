@@ -24,7 +24,7 @@ db.sync({force: true})
       db.model('route').create({coords: [[38,-119],[37.75,-119.75],[37,-119]]}),
       db.model('route').create({coords: [[45,-119],[43.5,-119.75],[43,-119.75],[42,-119]]}),
       db.model('route').create({coords: [[41.799,-87.581],[41.800368, -87.581021],[41.802024, -87.580957],[41.804015, -87.581611],[41.805902, -87.583853],[41.807989, -87.586192]]}),
-      db.model('route').create({coords: [[41.809590, -87.596837],[41.809686, -87.592427],[41.808071, -87.590689],[41.805676, -87.589218],[41.802476, -87.587889],[41.801058, -87.587528]]})
+      db.model('route').create({coords: [[41.809590, -87.596837],[41.809686, -87.592427],[41.808071, -87.590689],[41.805676, -87.589218],[41.802476, -87.587889],[41.801058, -87.587528],[41.801058, -87.5874],[41.801058, -87.5873],[41.801058, -87.5872],[41.801058, -87.5871],[41.801058, -87.5870],[41.801058, -87.5869],[41.801058, -87.5868],[41.801058, -87.5867],[41.801058, -87.5866],[41.801058, -87.5865],[41.801058, -87.5854],[41.801058, -87.5863],[41.801058, -87.5862],[41.801058, -87.5861],[41.801058, -87.5860]]})
     ])
   })
 .then(routes=>{
@@ -44,23 +44,26 @@ db.sync({force: true})
   charlesInst.addRoute(route5)
 
   return Promise.all([
-          db.model('routetime').create({timesArr: [0,5000,10000,20000], userId: charlesInst.id, routeId: route1.id}),
-          db.model('routetime').create({timesArr: [0,7000,16000,24000], userId: alyssaInst.id, routeId: route1.id}),
-          db.model('routetime').create({timesArr: [0,7000,16000,23000], userId: alyssaInst.id, routeId: route1.id}),
-          db.model('routetime').create({timesArr: [0,8000,16000,25000], userId: gabiInst.id, routeId: route1.id}),
+          db.model('routetime').create({personalTimeMarker: [0,5000,10000,20000], userId: charlesInst.id, routeId: route1.id}),
+          db.model('routetime').create({personalTimeMarker: [0,7000,16000,24000], userId: alyssaInst.id, routeId: route1.id}),
+          db.model('routetime').create({personalTimeMarker: [0,7000,16000,23000], userId: alyssaInst.id, routeId: route1.id}),
+          db.model('routetime').create({personalTimeMarker: [0,8000,16000,25000], userId: gabiInst.id, routeId: route1.id}),
 
-          db.model('routetime').create({timesArr: [0,5000,10000,20000], userId: charlesInst.id, routeId: route2.id}),
-          db.model('routetime').create({timesArr: [0,8000,16000,25000], userId: gabiInst.id, routeId: route2.id}),
+          db.model('routetime').create({personalTimeMarker: [0,5000,10000,20000], userId: charlesInst.id, routeId: route2.id}),
+          db.model('routetime').create({personalTimeMarker: [0,8000,16000,25000], userId: gabiInst.id, routeId: route2.id}),
 
-          db.model('routetime').create({timesArr: [0,8000,16000,19000], userId: charlesInst.id, routeId: route3.id}),
-          db.model('routetime').create({timesArr: [0,8000,16000,17000], userId: charlesInst.id, routeId: route3.id}),
-          db.model('routetime').create({timesArr: [0,8000,16000,18000], userId: charlesInst.id, routeId: route3.id}),
+          db.model('routetime').create({personalTimeMarker: [0,8000,16000,19000], userId: charlesInst.id, routeId: route3.id}),
+          db.model('routetime').create({personalTimeMarker: [0,8000,16000,17000], userId: charlesInst.id, routeId: route3.id}),
+          db.model('routetime').create({personalTimeMarker: [0,8000,16000,18000], userId: charlesInst.id, routeId: route3.id}),
 
-          // db.model('routetime').create({timesArr: [0,10,20,30,40,50], userId: charlesInst.id, routeId: route4.id}),
-          db.model('routetime').create({timesArr: [0,300,1500,3000,5000,12000], userId: charlesInst.id, routeId: route4.id}),//super fast.. (to test against test runner)
-          db.model('routetime').create({timesArr: [0,11000,23000,35000,47000,59000], userId: gabiInst.id, routeId: route4.id}),
+          // db.model('routetime').create({personalTimeMarker: [0,10,20,30,40,50], userId: charlesInst.id, routeId: route4.id}),
+          db.model('routetime').create({personalTimeMarker: [0,300,1500,3000,5000,12000], userId: charlesInst.id, routeId: route4.id}),//super fast.. (to test against test runner)
+          db.model('routetime').create({personalTimeMarker: [0,11000,23000,35000,47000,59000], userId: gabiInst.id, routeId: route4.id}),
 
-          db.model('routetime').create({timesArr: [0,300,1500,3000,5000,12000], userId: charlesInst.id, routeId: route5.id}),//super fast.. (to test against test runner)
+          db.model('routetime').create({personalTimeMarker: [0,300,1500,3000,5000,12000,14000,16000,18000,20000,22000,24000,26000,28000,30000,32000,34000,36000,38000,40000,42000],
+          personalCoords: [[41.809590, -87.596837],[41.809686, -87.592427],[41.808071, -87.590689],[41.805676, -87.589218],[41.802476, -87.587889],[41.801058, -87.587528],[41.801058, -87.5874],[41.801058, -87.5873],[41.801058, -87.5872],[41.801058, -87.5871],[41.801058, -87.5870],[41.801058, -87.5869],[41.801058, -87.5868],[41.801058, -87.5867],[41.801058, -87.5866],[41.801058, -87.5865],[41.801058, -87.5854],[41.801058, -87.5863],[41.801058, -87.5862],[41.801058, -87.5861],[41.801058, -87.5860]],
+          checkpointTimeMarker: [0,22000,42000],
+          userId: charlesInst.id, routeId: route5.id}),//super fast.. (to test against test runner)
         ])
   })
 // .then(()=>{

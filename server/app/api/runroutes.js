@@ -79,3 +79,14 @@ module.exports = require('express').Router()
           .catch(next)
         })
       })
+
+      .get('/routetime/:id', (req, res, next) => {
+        return Routetime.findOne(
+          {where: {id: req.params.id},
+          include: [{model: User}]
+          })
+        .then(routetimeInfo => {
+          console.log('routetime info', routetimeInfo)
+          res.json(routetimeInfo)
+        })
+      })

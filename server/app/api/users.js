@@ -52,6 +52,7 @@ module.exports = require('express').Router()
   })
 
 
+//This is the route for getting all the routes/routetimes that a user has run
   .get('/:id', (req, res, next)=> {
     return User.findOne({
         where: {id: req.params.id},

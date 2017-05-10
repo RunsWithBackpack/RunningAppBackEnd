@@ -21,6 +21,7 @@ var Sequelize = require('sequelize')
 User.hasMany(Routetime) //RouteTime is a kuje join table between User and Routes, but different from UserAndRoutes because it contains a time array representing what time a runner got to a location (the time array has equivalent length to routes coordinates)..
 Routetime.belongsTo(User)
 // Routetime.hasOne(User)
+Routetime.hasMany(Routetime, {as: 'racerTime'})
 
 // User.belongsToMany(Routetime, {through: 'UserAndRouteTimes'}) //RouteTime is a kuje join table between User and Routes, but different from UserAndRoutes because it contains a time array representing what time a runner got to a location (the time array has equivalent length to routes coordinates)..
 // Routetime.hasOne(User)
