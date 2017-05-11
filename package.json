@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "nodemon server/main.js",
-    "test": "jest", 
+    "start": "node server/main.js",
+    "test": "jest",
     "seed": "node server/seed.js",
     "heroku-postbuild": "npm run seed"
   },
