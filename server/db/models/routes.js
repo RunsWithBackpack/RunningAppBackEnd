@@ -30,7 +30,8 @@ var Route = db.define('route',
       },
       checkpointCoords: function(){
         return this.coords.filter(coordPair => {
-          return this.coords.indexOf(coordPair) % 10 === 0
+          if(this.coords.indexOf(coordPair) % 5 === 0) return true
+          else if(this.coords.indexOf(coordPair) === this.coords.length-1) return true
         })
       }
       // popularity: function(){    //unfortunatley this returns a promise, and not the length itself... this can be implemented again if we find a way around this.. but for now, popularity will be a direct field of route, updated by routetimes aftercreate hook
@@ -67,10 +68,23 @@ var Route = db.define('route',
             return routesArr.filter(route=>{
               // console.log(latMin, latMax, longMin, longMax);
               // console.log('route coords is ',route.coords);
-              return  (
-                  (route.coords[0][0] <= latMax && route.coords[0][0] >= latMin) && (route.coords[0][1] <= longMax && route.coords[0][1] >= longMin) &&
-                  (route.coords[route.coords.length-1][0] <= latMax && route.coords[route.coords.length-1][0] >= latMin) && (route.coords[route.coords.length-1][1] <= longMax && route.coords[route.coords.length-1][1] >= longMin)
-                      )
+
+              // return  (
+              //     (route.coords[0][0] <= latMax && route.coords[0][0] >= latMin) && (route.coords[0][1] <= longMax && route.coords[0][1] >= longMin) &&
+              //     (route.coords[route.coords.length-1][0] <= latMax && route.coords[route.coords.length-1][0] >= latMin) && (route.coords[route.coords.length-1][1] <= longMax && route.coords[route.coords.length-1][1] >= longMin)
+              //         )
+
+              let coords=route.coords
+              coords.forEach(coordPair=>{
+                //if ANY coordPair in a set of coordinates for a route happens to fall within the region boundaries, the route will will be returned!
+
+                if (
+                  (coordPair[0] <= latMax && coordPair[0] >= latMin) && (coordPair[1] <= longMax && coordPair[1] >= longMin)
+                )
+                { return true }
+
+              })
+
             })
           })
           .then(filteredRoutesByRegion=>{
