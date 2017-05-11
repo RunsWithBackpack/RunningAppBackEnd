@@ -26,6 +26,9 @@ var Routetime = db.define('routetime',
     }, 
     personalTimeMarker: {
       type: Sequelize.ARRAY(Sequelize.INTEGER), 
+    }, 
+    heartrateInfo : {
+      type: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.INTEGER))
     }
   },
   {
@@ -34,22 +37,6 @@ var Routetime = db.define('routetime',
         console.log('runtime getter method ', this.personalTimeMarker[this.personalTimeMarker.length-1]-this.personalTimeMarker[0])
         return this.personalTimeMarker[this.personalTimeMarker.length-1]-this.personalTimeMarker[0];
       },
-      // best: function(){
-      //   let userId = this.userId
-      //   let routeId = this.routeId
-      //   return Routetime.findAll({where: {userId, routeId}})
-      //   .then(routetimes => {
-
-      //     let sortedRows = routetimes.sort(function(a,b){return b.runtime-a.runtime})
-      //     console.log('sorted ', sortedRows)
-      //     if (this === sortedRows[0]){
-      //       return true
-      //     } else {
-      //       return false
-      //     }
-      //     // routetimes.runthis.personalTimeMarker[this.personalTimeMarker.length-1]
-      //   })
-      // }
     },
       setterMethods : {
       jsonLatLongCoords: function(jsonLatLongArr){
@@ -59,7 +46,7 @@ var Routetime = db.define('routetime',
         })
         this.setDataValue('personalCoords',latlongArrArr);
         this.save();
-      }
+      }, 
     },
     hooks: {
       afterCreate: function(newroutetime) {
