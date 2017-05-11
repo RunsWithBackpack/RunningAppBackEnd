@@ -30,7 +30,7 @@ var Route = db.define('route',
       }, 
       checkpointCoords: function(){
         return this.coords.filter(coordPair => {
-          return this.coords.indexOf(coordPair) % 10
+          return this.coords.indexOf(coordPair) % 10 === 0
         })
       }
       // popularity: function(){    //unfortunatley this returns a promise, and not the length itself... this can be implemented again if we find a way around this.. but for now, popularity will be a direct field of route, updated by routetimes aftercreate hook
