@@ -6,7 +6,6 @@ const Route = dbIndex.Route;
 const Routetime = dbIndex.Routetime;
 const User = dbIndex.User;
 
-
 module.exports = require('express').Router()
   .get('/',//THIS SHOULD BE FORBIDDEN TO REGULAR USERS!!!!!!!!!!!  ONLY ADMIN OR SOMETHING CAN GET THIS... IMPLEMENT THIS WHEN WE HAVE TIME
     (req, res, next) => {// an example of a query: http://localhost:3000/api/runroutes/?latitude=35&longitude=-119&latitudeDelta=3&longitudeDelta=1000&limit=10 (for the seedfile, this should return one of the two routes)
@@ -35,7 +34,8 @@ module.exports = require('express').Router()
 
   .get('/:id',
   (req, res, next) =>
-  { console.log('req params', req.params.id)
+  {
+    // console.log('req params', req.params.id)
     return Route.findOne(
       {
         where: {id: req.params.id},
@@ -44,7 +44,7 @@ module.exports = require('express').Router()
           }]
       })
       .then(routes=>{
-        console.log('routes is ', routes)
+        // console.log('routes is ', routes)
         return routes;
       })
       .then(routes => res.json(routes))
@@ -100,8 +100,7 @@ module.exports = require('express').Router()
           res.json(routetimeInfo)
         })
       })
-
-
+      
       .put('/routetime/:id', (req, res, next) => {
         console.log('inside of backend with. ', req.body.heartrateInfo)
         return Routetime.findOne({where: {id: req.params.id}})

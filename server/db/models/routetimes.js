@@ -55,7 +55,6 @@ var Routetime = db.define('routetime',
     },
     hooks: {
       afterCreate: function(newroutetime) {
-        console.log('THIS IS RUNNING')
         //this hook ensures 2 things:
         //1: that a players routetimes (for a given route) are updated with the correct boolean for the "best" field after a new routetime is created (for that route and player)
         //2: that the associated route for the newly created routetime has its popularity field updated (incremented by 1)
