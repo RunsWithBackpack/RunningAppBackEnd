@@ -11,10 +11,10 @@ var Routetime = db.define('routetime',
         defaultValue: [],
     },
     startTime: {
-      type: Sequelize.DATE,
+      type: Sequelize.BIGINT,
     },
     endTime: {
-      type: Sequelize.DATE,
+      type: Sequelize.BIGINT,
     },
     best: {
       type: Sequelize.BOOLEAN,
@@ -28,7 +28,7 @@ var Routetime = db.define('routetime',
       type: Sequelize.ARRAY(Sequelize.INTEGER),
     },
     heartrateInfo : {
-      type: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.INTEGER))
+      type: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.BIGINT))
     }
   },
   {
