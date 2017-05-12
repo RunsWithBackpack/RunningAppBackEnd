@@ -21,7 +21,7 @@ var Route = db.define('route',
       convCoords: function() {//On the front end, you can get the array of coordinates that can work with navigator and mapview via this pseudofield convCoords
         // console.log(this.coords);
         let convertedCoords= this.coords.map(arr=>{
-          return {latitude: arr[0], longitude: arr[1]};//so the above example coords would look like [{latitude: 36.5, longitude: -120},{latitute: 36.4, longitude: -120}]
+          return {latitude: +arr[0], longitude: +arr[1]};//so the above example coords would look like [{latitude: 36.5, longitude: -120},{latitute: 36.4, longitude: -120}]
         })
         return convertedCoords;
       },
@@ -44,13 +44,11 @@ var Route = db.define('route',
     },
     setterMethods : {
       jsonLatLongCoords: function(jsonLatLongArr){
-        console.log('this is the jsonLatLongArr', jsonLatLongArr)
         let latlongArrArr= jsonLatLongArr.map(latlongObj=>{
           return [+latlongObj.latitude,+latlongObj.longitude]
         })
         this.setDataValue('coords',latlongArrArr);
-        this.save();
-      }
+      },
     },
     classMethods : {
       filterRoutesByRegion: function(region, limit){
@@ -75,7 +73,7 @@ var Route = db.define('route',
               //         )
 
               let coords=route.coords
-              coords.forEach(coordPair=>{
+              for(let coordPair of coords){
                 //if ANY coordPair in a set of coordinates for a route happens to fall within the region boundaries, the route will will be returned!
 
                 if (
@@ -83,7 +81,7 @@ var Route = db.define('route',
                 )
                 { return true }
 
-              })
+              }
 
             })
           })

@@ -46,8 +46,6 @@ Route.belongsToMany(User, {through: 'UserAndRoutes'})//UserAndRoutes is our join
 
 // Group.belongsTo(League) //League.hasMany(Group)
 
-
-
 // db.sync({force: true})
 // .then(()=> {
 //     console.log('db is synced and "running"')

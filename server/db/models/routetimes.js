@@ -19,14 +19,14 @@ var Routetime = db.define('routetime',
     best: {
       type: Sequelize.BOOLEAN,
       defaultValue: false,
-    }, 
+    },
     personalCoords: {
       type: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.DECIMAL)),
-      defaultValue: [], 
-    }, 
+      defaultValue: [],
+    },
     personalTimeMarker: {
-      type: Sequelize.ARRAY(Sequelize.INTEGER), 
-    }, 
+      type: Sequelize.ARRAY(Sequelize.INTEGER),
+    },
     heartrateInfo : {
       type: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.INTEGER))
     }
@@ -34,7 +34,7 @@ var Routetime = db.define('routetime',
   {
     getterMethods : {
       runtime: function(){
-        console.log('runtime getter method ', this.personalTimeMarker[this.personalTimeMarker.length-1]-this.personalTimeMarker[0])
+        // console.log('runtime getter method ', this.personalTimeMarker[this.personalTimeMarker.length-1]-this.personalTimeMarker[0])
         return this.personalTimeMarker[this.personalTimeMarker.length-1]-this.personalTimeMarker[0];
       },
     },
@@ -44,9 +44,14 @@ var Routetime = db.define('routetime',
         let latlongArrArr= jsonLatLongArr.map(latlongObj=>{
           return [+latlongObj.latitude,+latlongObj.longitude]
         })
-        this.setDataValue('personalCoords',latlongArrArr);
-        this.save();
-      }, 
+        this.setDataValue('personalCoords',latlongArrArr)
+      },
+      latLongArrArrStr: function(latLongArrArrStr){
+        let latLongArrArrDec= latLongArrArrStr.map(latlongArr=>{
+          return [+latlongArr[0],+latlongArr[1]]
+        })
+        this.setDataValue('personalCoords', latLongArrArrDec)
+      }
     },
     hooks: {
       afterCreate: function(newroutetime) {
@@ -91,7 +96,7 @@ var Routetime = db.define('routetime',
             return associatedRoute.increment({'popularity': 1})
           })
           .catch(err=>err);
-      
+
         return Promise.all([upRoutetimeBestProm, upRoutePopularityProm]);
       },
     }
