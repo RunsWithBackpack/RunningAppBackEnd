@@ -11,7 +11,7 @@ api
   // .use('/auth', require('./auth'))
   .use('/users', require('./users'))
   .use('/runroutes', require('./runroutes'))
-  // .use('/categories', require('./categories'))
+  .use('/geonames', require('./geonames'))
   // .use('/products', require('./products'))
   // .use('/orders', require('./orders'))
   // .use('/prodOnOrders', require('./prodOnOrders'))
