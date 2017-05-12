@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "test": "mocha ./server/tests --recursive --watch --compilers js:babel-register",
     "start": "node server/main.js",
-    "test": "jest",
     "seed": "node server/seed.js",
     "heroku-postbuild": "npm run seed"
   },
@@ -12,6 +12,7 @@
     "axios": "^0.16.1",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
+    "chai": "^3.5.0",
     "express": "^4.15.2",
     "express-session": "^1.15.2",
     "geolib": "^2.0.22",
@@ -26,6 +27,9 @@
     "webpack": "^2.3.3"
   },
   "devDependencies": {
+    "babel-jest": "19.0.0",
+    "babel-plugin-module-resolver": "^2.7.0",
+    "babel-preset-react-native": "1.9.1",
     "chai": "^3.5.0",
     "mocha": "^3.1.2",
     "nodemon": "^1.11.0"
