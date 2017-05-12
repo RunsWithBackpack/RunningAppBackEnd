@@ -95,7 +95,20 @@ module.exports = require('express').Router()
           include: [{model: User}]
           })
         .then(routetimeInfo => {
-          console.log('routetime info', routetimeInfo)
+          // console.log('routetime info', routetimeInfo)
           res.json(routetimeInfo)
+        })
+      })
+
+
+      .put('/routetime/:id', (req, res, next) => {
+        console.log('inside of backend with. ', req.body.heartrateInfo)
+        return Routetime.findOne({where: {id: req.params.id}})
+        .then(routetime => {
+          console.log('routetime', routetime)
+          return routetime.update({heartrateInfo: req.body.heartrateInfo})
+        })
+        .then(updatedRouteTime => {
+          res.json(updatedRouteTime)
         })
       })
