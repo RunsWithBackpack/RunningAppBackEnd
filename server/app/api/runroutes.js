@@ -10,7 +10,7 @@ const User = dbIndex.User;
 module.exports = require('express').Router()
   .get('/',//THIS SHOULD BE FORBIDDEN TO REGULAR USERS!!!!!!!!!!!  ONLY ADMIN OR SOMETHING CAN GET THIS... IMPLEMENT THIS WHEN WE HAVE TIME
     (req, res, next) => {// an example of a query: http://localhost:3000/api/runroutes/?latitude=35&longitude=-119&latitudeDelta=3&longitudeDelta=1000&limit=10 (for the seedfile, this should return one of the two routes)
-      let limit= (!req.query.limit) ? 2 : req.query.limit;//default limit if none was specified
+      let limit= (!req.query.limit) ? 5 : req.query.limit;//default limit if none was specified
       // console.log(limit)
       if(req.query.latitude && req.query.longitude && req.query.latitudeDelta && req.query.longitudeDelta){
         let region={ latitude: +req.query.latitude, longitude: +req.query.longitude, latitudeDelta: +req.query.latitudeDelta, longitudeDelta: +req.query.longitudeDelta, }
@@ -18,6 +18,7 @@ module.exports = require('express').Router()
         return Route.filterRoutesByRegion(region, limit)
                 .then(filteredRoutes=> {
                   // console.log('num routes to display : ', filteredRoutes.length)
+                  // console.log('filteredRoutes ', filteredRoutes)
                   return res.json(filteredRoutes)
                 })
                 .catch(next)
@@ -49,7 +50,7 @@ module.exports = require('express').Router()
       .then(routes => res.json(routes))
       .catch(next)
 })
-  
+
     .post('/',//should look something like: {"userId": "1","timesArr": ["1","2"], "convCoords": [{"latitude": "1","longitude": "1"},{"latitude": "1","longitude": "1"}] }
     //or {"userId": "1","timesArr": ["1","2"], "convCoords": [{"latitude": "1","longitude": "1"},{"latitude": "1","longitude": "1"}], "routeId": "1" }  if adding just routetime
       (req, res, next) =>{
@@ -70,17 +71,17 @@ module.exports = require('express').Router()
             routeinstance= createdRouteArr[0];
             routeinstance.jsonLatLongCoords=req.body.personalCoords;
             routeId = routeinstance.id;
-            return User.findById(req.body.userId)
-          .then(user=>{
+            return Promise.all([User.findById(req.body.userId),routeinstance.save()])
+          .then(resolvedArr=>{
+            let user=resolvedArr[0]
             return user.addRoute(routeinstance);
           })
           .then(()=>{
             return Routetime.create({personalTimeMarker: req.body.personalTimeMarker, checkpointTimeMarker: req.body.checkpointTimeMarker, startTime: req.body.startTime, endTime: req.body.endTime , userId: req.body.userId, routeId, routetimeId: req.body.phantomRacerRouteTimeId});
           })
-          .then(Routetime=>{
-            Routetime.jsonLatLongCoords = req.body.personalCoords
-            return Routetime
-            
+          .then(routetime=>{
+            routetime.jsonLatLongCoords = req.body.personalCoords
+            return routetime.save()
           })
           .then(routetime => {
             res.json(routetime);
