@@ -8,7 +8,7 @@ const User = dbIndex.User;
 
 module.exports = require('express').Router()
   .get('/',//THIS SHOULD BE FORBIDDEN TO REGULAR USERS!!!!!!!!!!!  ONLY ADMIN OR SOMETHING CAN GET THIS... IMPLEMENT THIS WHEN WE HAVE TIME
-    (req, res, next) => {// an example of a query: http://localhost:3000/api/runroutes/?latitude=35&longitude=-119&latitudeDelta=3&longitudeDelta=1000&limit=10 (for the seedfile, this should return one of the two routes)
+    (req, res, next) => {// an example of a query: http://localhost:3000/api/runroutes/?latitude=35&longitude=-119&latitudeDelta=3&longitudeDelta=3&limit=10 (for the seedfile, this should return one of the two routes)
       let limit= (!req.query.limit) ? 5 : req.query.limit;//default limit if none was specified
       // console.log(limit)
       if(req.query.latitude && req.query.longitude && req.query.latitudeDelta && req.query.longitudeDelta){
@@ -25,7 +25,7 @@ module.exports = require('express').Router()
       else {
         return Route.findAll({limit: limit, order: 'popularity DESC' })
         .then(allRoutes => {
-          // console.log('num routes found : ',allRoutes.length)
+          console.log('num routes found : ',allRoutes.length)
           return res.json(allRoutes)
         })
         .catch(next)
@@ -100,7 +100,7 @@ module.exports = require('express').Router()
           res.json(routetimeInfo)
         })
       })
-      
+
       .put('/routetime/:id', (req, res, next) => {
         console.log('inside of backend with. ', req.body.heartrateInfo)
         return Routetime.findOne({where: {id: req.params.id}})
