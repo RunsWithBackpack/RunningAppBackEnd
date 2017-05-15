@@ -30,7 +30,8 @@ db.sync({force: true})
       // db.model('route').create({coords: [[45,-119],[43.5,-119.75],[43,-119.75],[42,-119]]}),
       // db.model('route').create({coords: [[41.799,-87.581],[41.800368, -87.581021],[41.802024, -87.580957],[41.804015, -87.581611],[41.805902, -87.583853],[41.807989, -87.586192]]}),
       db.model('route').create({coords: [[41.809590, -87.596837],[41.809686, -87.592427],[41.808071, -87.590689],[41.805676, -87.589218],[41.802476, -87.587889],[41.801058, -87.587528],[41.801058, -87.5874],[41.801058, -87.5873],[41.801058, -87.5872],[41.801058, -87.5871],[41.801058, -87.5870],[41.801058, -87.5869],[41.801058, -87.5868],[41.801058, -87.5867],[41.801058, -87.5866],[41.801058, -87.5865],[41.801058, -87.5864],[41.801058, -87.5863],[41.801058, -87.5862],[41.801058, -87.5861],[41.801058, -87.5855]]}),
-      db.model('route').create({jsonLatLongCoords: charlesRoute["convCoords"]})
+      db.model('route').create({jsonLatLongCoords: charlesRoute["convCoords"]}),
+      db.model('route').create({coords: [[41.809690, -87.596837],[41.809686, -87.592627],[41.808071, -87.590589],[41.805676, -87.589518],[41.802476, -87.587489],[41.801058, -87.587428],[41.801058, -87.5873],[41.801058, -87.5872],[41.801058, -87.5871],[41.801058, -87.5870],[41.801058, -87.5869],[41.801058, -87.5867],[41.801058, -87.5866],[41.801058, -87.5865],[41.801058, -87.5864],[41.801058, -87.5863],[41.801058, -87.5862],[41.801058, -87.5861],[41.801058, -87.5859],[41.801058, -87.5858],[41.801058, -87.5857]]}),
     ])
   })
 .then(routes=>{
@@ -40,6 +41,7 @@ db.sync({force: true})
   // route4 = routes[4];
   route5 = routes[0];
   route6 = routes[1];
+  route7 = routes[2];
   // charlesInst.addRoute(route1);
   // charlesInst.addRoute(route2);
   // alyssaInst.addRoute(route1);
@@ -49,7 +51,7 @@ db.sync({force: true})
   // charlesInst.addRoute(route4);
   // gabiInst.addRoute(route4);
   charlesInst.addRoute(route5)
-
+  charlesInst.addRoute(route7)
   charlesInst.addRoute(route6)
   gabiInst.addRoute(route6)
 
@@ -89,10 +91,29 @@ db.sync({force: true})
             personalTimeMarker: GabisRunonCharlesRoute["users"][0]["routetimes"][0]["personalTimeMarker"],
             checkpointTimeMarker: GabisRunonCharlesRoute["users"][0]["routetimes"][0]["checkpointTimeMarker"],
             latLongArrArrStr: GabisRunonCharlesRoute["users"][0]["routetimes"][0]["personalCoords"],
-            userId: gabiInst.id, routeId: route6.id,
+            userId: gabiInst.id, routeId: route6.id, 
             startTime: GabisRunonCharlesRoute["users"][0]["routetimes"][0]["startTime"],
             endTime: GabisRunonCharlesRoute["users"][0]["routetimes"][0]["endTime"],
           }),
+          db.model('routetime').create({
+            personalTimeMarker: [0,2000,4000,7000,8000,10000,30000,50000,80000,100000,150000,200000,250000,300000,400000,500000,650000,800000,100000,1100000,1200000],
+            checkpointTimeMarker: [0, 150000, 1200000],
+            jsonLatLongCoords: [{latitude: 41.809690, longitude: -87.596837}, {latitude: 41.809686, longitude: -87.592627}, {latitude: 41.808071, longitude: -87.590589}, {latitude: 41.805676, longitude: -87.589518}, {latitude: 41.802476, longitude: -87.587489}, {latitude: 41.801058, longitude: -87.587428}, {latitude: 41.801058, longitude: -87.5873}, {latitude: 41.801058, longitude: -87.5872}, {latitude: 41.801058, longitude: -87.5871}, {latitude: 41.801058, longitude: -87.5870}, {latitude: 41.801058, longitude: -87.5869}, {latitude: 41.801058, longitude: -87.5867}, {latitude: 41.801058, longitude: -87.5866}, {latitude: 41.801058, longitude: -87.5865}, {latitude: 41.801058, longitude: -87.5864}, {latitude: 41.801058, longitude: -87.5863}, {latitude: 41.801058, longitude: -87.5862}, {latitude: 41.801058, longitude: -87.5861}, {latitude: 41.801058, longitude: -87.5859}, {latitude: 41.801058, longitude: -87.5858}, {latitude: 41.801058, longitude: -87.5857}],
+            userId: charlesInst.id, routeId: route7.id, 
+            startTime: 1494506220000,
+            endTime: 1494507420000,
+          }),
 
         ])
+    .then(routetimes => {
+      routetime1 = routetimes[0],
+      routetime2 = routetimes[1],
+      routetime3 = routetimes[2],
+      routetime4 = routetimes[3]
+      console.log('routetime 3 ', routetime3, 'routetime 2', routetime2)
+
+      routetime3.setRacerTime(routetime2)
+    })
+
+
   })
