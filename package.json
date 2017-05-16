@@ -6,7 +6,7 @@
     "test": "mocha ./server/tests --recursive --watch --compilers js:babel-register",
     "start": "node server/main.js",
     "seed": "node server/seed.js",
-    "heroku-postbuild": "npm run seed"
+    "heroku-postbuild": "npm run seed",
   },
   "dependencies": {
     "axios": "^0.16.1",
