@@ -90,7 +90,7 @@ module.exports = require('express').Router()
         })
       })
 
-      .get('/routetime/:id', (req, res, next) => {
+    .get('/routetime/:id', (req, res, next) => {
         return Routetime.findOne(
           {where: {id: req.params.id},
           include: [{model: User}]
@@ -101,7 +101,7 @@ module.exports = require('express').Router()
         })
       })
 
-      .put('/routetime/:id', (req, res, next) => {
+    .put('/routetime/:id', (req, res, next) => {
         console.log('inside of backend with. ', req.body.heartrateInfo)
         return Routetime.findOne({where: {id: req.params.id}})
         .then(routetime => {
