@@ -16,17 +16,6 @@ const Routetime = dbIndex.Routetime;
 // module.exports = require('express').Router()
 
 
-router.use(session({
-  secret: 'phantomRacer', 
-  resave: false,
-  saveUninitialized: false
-  }));
-
-
- router.use(function (req, res, next) {
-    console.log('session!!', req.session);
-     next();
-  });
 
   router.get('/',
     // The forbidden middleware will fail *all* requests to list users.
@@ -55,6 +44,17 @@ router.use(session({
       })
       .catch((next))
 
+  })
+
+  router.put('/:id', (req, res, next)=> {
+    console.log('HERE with this ', req.body)
+    return User.findOne({where: {id: req.params.id}})
+    .then(user => {
+      return user.update(req.body)
+    })
+    .then(updatedUser => {
+      res.json(updatedUser)
+    })
   })
 
 module.exports = router

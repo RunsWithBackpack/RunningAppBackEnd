@@ -26,7 +26,7 @@ router.use(session({
  		let user = req.session.user
  		res.json(user)
  	} else {
- 		res.status(500).send()
+ 		res.status(404).send()
  	}
  })
 
