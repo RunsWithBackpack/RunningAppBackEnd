@@ -9,6 +9,7 @@ module.exports = require('express').Router()
       let longitude= req.query.longitude
       return axios.get(`http://api.geonames.org/findNearestIntersectionJSON?lat=${latitude}&lng=${longitude}&username=${username}`)
         .then(res=>{
+          console.log(res.data)
           return res.data.intersection})
         .then(intersection=>{
           if(intersection) res.json(intersection)
