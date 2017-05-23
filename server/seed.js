@@ -14,8 +14,8 @@ db.sync()
   console.log('db has synced. seeding');
   return Promise.all([
     // db.model('user').create({email: 'Alyssa@alyssa.com', password: 1234, username: 'runswithbackpack!', city: 'Chicago',}),
-    db.model('user').create({email: 'Gabi@gabi.com', password: 1234, username: 'Gabi', city: 'Chicago',}),//I know how much it means to you, so i spelled your name correctly this time
-    db.model('user').create({email: 'Charles@charles.com', password: 1234, username: 'Charles', city: 'Chicago',}),
+    db.model('user').create({email: 'Gabi@gabiDELETELATER.com', password: 1234, username: 'Gabi', city: 'Chicago',}),//I know how much it means to you, so i spelled your name correctly this time
+    db.model('user').create({email: 'Charles@charlesDELETELATER.com', password: 1234, username: 'Charles', city: 'Chicago',}),
     // db.model('user').create({email: 'testRunner@testRunner.com', password: 1234, username: 'testRunner', city: 'Chicago',}),
     // db.model('user').create({email: 'janedoe@janedoe.com', password: 1234, username: 'Jane', city: 'Chicago',}),
   ])
